@@ -18,19 +18,28 @@ class TextInput extends Component{
     })
   }
 
+  deleteLetter(){
+    //take current this.state.inputText
+    //delete letter
+    //update state
+    this.setState({
+      inputText:this.state.inputText.substring(0,this.state.inputText.length-1)
+    })
+  }
+
   render(){
     return (
       <div>
         <input
-        type="text"
-        placeholder ="Enter Name"
-        value ={this.state.inputText}
-        onChange={this.handleChange.bind(this)}
+          type="text"
+          placeholder ="Enter Name"
+          value ={this.state.inputText}
+          onChange={this.handleChange.bind(this)}
         />
 
         <TextDisplay
           text={this.state.inputText}
-
+          deleteLetter ={this.deleteLetter.bind(this)}
         />
     </div>
 
