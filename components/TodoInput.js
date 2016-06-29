@@ -1,5 +1,4 @@
 import React,{Component} from 'react'
-import actions from '../redux/actions'
 
 class TodoInput extends Component{
 
@@ -20,13 +19,14 @@ class TodoInput extends Component{
 
   handleSubmit(event){
     event.preventDefault()
-    this.props.dispatch(actions.addTodo(this.state.inputText))
+    this.props.addTodo(this.state.inputText)
   }
 
 
   render(){
     return (
       <div>
+        <form onSubmit={this.handleSubmit.bind(this)}>
         <input
           type="text"
           placeholder ="Type TODO"
@@ -34,7 +34,8 @@ class TodoInput extends Component{
           onChange={this.handleChange.bind(this)}
         />
 
-        <button onClick={this.handleSubmit.bind(this)}>Submit</button>
+        <input type="submit" text="Submite"/>
+        </form>
     </div>
 
   )

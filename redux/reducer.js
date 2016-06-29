@@ -6,7 +6,7 @@ function getId(state){
 
 let reducer = function (state, action){
   switch(action.type){
-    case 'ADD_TODO':    
+    case 'ADD_TODO':
       return Object.assign({},state,{
         todos:[{
           text: action.text,
@@ -14,6 +14,20 @@ let reducer = function (state, action){
           id: getId(state)
           //spread syntax ...
         }, ...state.todos]
+      })
+    case 'COMPLETE_TODO':
+      return Object.assign({},state,{
+        todos:state.todos.map((todo)=>{
+          return todo.id===action.id?
+          Object.assign({},todo,{completed:!todo.completed}): todo
+        })
+      })
+
+    case 'DELETE_TODO':
+      return Object.assign({},state,{
+        todos:state.todos.filter((todo)=>{
+          return todo.id !==action.id
+        })
       })
     default:
       return state;
