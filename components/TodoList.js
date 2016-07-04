@@ -1,5 +1,18 @@
 import React,{Component} from 'react'
 import TodoItem from './TodoItem'
+import { connect } from 'react-redux'
+import { bindActionCreators} from 'redux'
+import actions from '../redux/actions'
+
+function mapDispatchToProps(dispatch){
+	return {
+		actions:bindActionCreators(actions,dispatch)
+	}
+}
+
+function mapStateToProps(state){
+	return state
+}
 
 class TodoList extends Component{
 
@@ -17,3 +30,4 @@ class TodoList extends Component{
 }
 
 export default TodoList
+export default connect(mapStateToProps,mapDispatchToProps)(TodoList)

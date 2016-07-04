@@ -13,7 +13,33 @@ let initialState = {
 		id: 0,
 		completed: false,
 		text: 'Initial TODO'
-	}]
+	}],
+	user:{
+		username: 'Sujan',
+		id:540
+	},
+	userList:[{name:'Pam',email:'ladophaasers@icct.com'},{name:'Scott',email:'spreston@icct.com'},{name:'foo',email:'foo@foo.com'}],
+	contracts: [{
+	  id: 0,
+	  description: 'Use Reduxx',
+	  finished: 'true'
+	},
+	{
+	  id: 1,
+	  description: 'new contract',
+	  finished: 'false'
+	},
+	{
+	  id: 3,
+	  description: 'Old  CONTRACT',
+	  finished: 'true'
+	},
+	{
+	  id: 77,
+	  description: 'shaka brahss',
+	  finished: 'false'
+	}],
+	searchTerm : ''
 }
 
 let store = configureStore(initialState)

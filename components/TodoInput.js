@@ -1,4 +1,18 @@
 import React,{Component} from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators} from 'redux'
+import actions from '../redux/actions'
+
+function mapDispatchToProps(dispatch){
+	return {
+		actions:bindActionCreators(actions,dispatch)
+	}
+}
+
+function mapStateToProps(state){
+	return state
+}
+
 
 class TodoInput extends Component{
 
@@ -19,11 +33,12 @@ class TodoInput extends Component{
 
   handleSubmit(event){
     event.preventDefault()
-    this.props.addTodo(this.state.inputText)
+    this.props.actions.addTodo(this.state.inputText)
   }
 
 
   render(){
+      console.log(this.props)
     return (
       <div>
         <form onSubmit={this.handleSubmit.bind(this)}>
@@ -43,3 +58,4 @@ class TodoInput extends Component{
 }
 
 export default TodoInput
+module.exports = connect(mapStateToProps,mapDispatchToProps)(TodoInput)
