@@ -13,8 +13,8 @@ const middlewares = [
 
 // use only for dev mode
 if (!config.isProduction) {
-  const DevTools = require('utils/DevTools').default;
-  middlewares.push(DevTools.instrument());
+  // const DevTools = require('utils/DevTools').default;
+  // middlewares.push(DevTools.instrument());
 }
 
 export default function configureStore(initialState) {

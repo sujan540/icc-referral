@@ -23,7 +23,7 @@ class Header extends Component {
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <a className="navbar-brand" href="#">React-Redux-Router-CRUD-boilerplate</a>
+            <a className="navbar-brand" href="#">ICC Employee Referral</a>
           </div>
           <div id="navbar" className="navbar-collapse collapse">
             <ul className="nav navbar-nav navbar-right">
@@ -38,7 +38,7 @@ class Header extends Component {
 
                   <li role="separator" className="divider"></li>
                   <li>
-                    <a href="https://github.com/cloudmu/react-redux-starter-kit"target="_blank" title="View on Github"><i className="fa fa-github header_fa"/>Github</a>
+                    <a href="https://github.com/sujan540/icc-referral/tree/forthattempt"target="_blank" title="View on Github"><i className="fa fa-github header_fa"/>Github</a>
                   </li>
                 </ul>
               </li>

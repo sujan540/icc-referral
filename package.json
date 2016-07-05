@@ -28,12 +28,16 @@
     "react": "^0.14.0",
     "react-bootstrap": "^0.28.3",
     "react-dom": "^0.14.0",
+    "react-dropdown": "^1.0.4",
     "react-redux": "^4.4.0",
     "react-router": "2.0.0",
+    "react-router-redux": "^4.0.0",
+    "react-select-popover": "^0.1.1",
+    "react-widgets": "^3.3.3",
     "redux": "^3.3.1",
     "redux-form": "^4.2.0",
-    "react-router-redux": "^4.0.0",
-    "redux-thunk": "^1.0.0"
+    "redux-thunk": "^1.0.0",
+    "url-loader": "^0.5.7"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",

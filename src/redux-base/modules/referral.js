@@ -1,10 +1,11 @@
 import axios from 'axios';
 
 // --------------------------- Action constants --------------------------
-const LOAD = 'movies/LOAD';
-const LOAD_SUCCESS = 'movies/LOAD_SUCCESS';
-const LOAD_FAIL = 'movies/LOAD_FAIL';
-const ADD_MOVIE = 'movies/ADD_MOVIE';
+const LOAD = 'referral/LOAD';
+const LOAD_SUCCESS = 'referral/LOAD_SUCCESS';
+const LOAD_FAIL = 'referral/LOAD_FAIL';
+const ADD_REFERRAL = 'referral/ADD_REFERRAL';
+const LOAD_SKILLSETS = 'referral/LOAD_SKILLSETS';
 
 // --------------------------- Reducer function --------------------------
 const initialState = {
@@ -16,9 +17,14 @@ const initialState = {
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    case ADD_MOVIE:
+    case ADD_REFERRAL:
       return {
         ...state
+      };
+    case LOAD_SKILLSETS:
+      return {
+        ...state,
+        loading: true
       };
     case LOAD:
       return {
@@ -48,23 +54,31 @@ export default function reducer(state = initialState, action = {}) {
 
 // --------------------------- Action functions --------------------------
 export function isLoaded(globalState) {
-  return globalState.movies && globalState.movies.loaded;
+  return globalState.referral && globalState.referral.loaded;
 }
 
 export function load() {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-    promise: axios.get('http://localhost:3001/api/movies')
+    promise: axios.get('http://localhost:3001/api/referrals')
   };
 }
 
-export function addMovie(title, sprocketCount, owner) {
-  console.log(title);
-  console.log(sprocketCount);
-  console.log(owner);
+export function loadSkillSets() {
   return {
-    types: [ADD_MOVIE],
+    types: [LOAD_SKILLSETS, LOAD_SUCCESS, LOAD_FAIL],
+    promise: axios.get('http://localhost:3001/api/skillSets')
+  };
+}
+
+export function addReferral(form) {
+  console.log(form.name);
+  console.log(form.skill);
+  console.log(form.extra);
+  console.log(form.status);
+  return {
+    types: [ADD_REFERRAL],
     promise: axios
-    .post('http://localhost:3001/api/addMovie', { title, sprocketCount, owner })
+    .post('http://localhost:3001/api/addReferral', { form })
   };
 }

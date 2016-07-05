@@ -20,6 +20,10 @@ export default class CoreLayout extends Component {
                 <SmartLink url="/countersPage" title="CountersPage" />
                 <SmartLink url="/autoCounter" title="AutoCounter" />
                 <SmartLink url="/movies" title="Movies page" />
+                <SmartLink url="/employeesubmission" title="Employee Submission" />
+                <SmartLink url="/reactWidgetsForm" title="ReactWidgestForm" />
+
+
               </ul>
             </div>
             <div className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

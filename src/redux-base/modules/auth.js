@@ -74,6 +74,9 @@ export default function auth(state = initialState, action = {}) {
 // --------------------------- Action functions --------------------------
 
 export function login(userName, password) {
+  console.log('test');
+  console.log(userName);
+  console.log(password);
   return {
     types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
     promise: axios

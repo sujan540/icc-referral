@@ -1,15 +1,19 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { isLoaded, load } from 'redux-base/modules/movies';
+import { reduxForm } from 'redux-form';
+import { isLoaded, load, addMovie } from 'redux-base/modules/movies';
 
 const mapStateToProps = state => ({
-  movies: state.movies.data,
   error: state.movies.error,
   loading: state.movies.loading,
   isDataLoaded: isLoaded(state)
 });
 
-const mapActionsToProps = { load };
+const mapActionsToProps = { load, addMovie };
+
+const reduxFormConfig = {
+  form: 'movieForm',                      // the name of your form and the key to where your form's state will be mounted
+  fields: ['title', 'sprocketCount', 'owner'] // a list of all your fields in your form
+};
 
 export class MoviesPage extends Component {
 
@@ -21,8 +25,14 @@ export class MoviesPage extends Component {
     }
   }
 
+  handleMovie(data) {
+    const { load: loadData } = this.props;
+    this.props.dispatch(addMovie(data.title, data.sprocketCount, data.owner));
+    loadData();
+  }
+
   render() {
-    const { movies, error, loading } = this.props;
+    const { movies, error, loading, fields: { title, sprocketCount, owner }, handleSubmit } = this.props;
     let refreshClassName = 'fa fa-refresh';
     if (loading) {
       refreshClassName += ' fa-spin';
@@ -32,31 +42,13 @@ export class MoviesPage extends Component {
 
     return (
       <div>
-        <h1 className="page-header">Dashboard</h1>
-
-          <div className="row placeholders">
-            <div className="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/sky" className="img-responsive" alt="Generic placeholder thumbnail" />
-              <h4>Label</h4>
-              <span className="text-muted">Something else</span>
-            </div>
-            <div className="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/vine" className="img-responsive" alt="Generic placeholder thumbnail" />
-              <h4>Label</h4>
-              <span className="text-muted">Something else</span>
-            </div>
-            <div className="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/sky" className="img-responsive" alt="Generic placeholder thumbnail" />
-              <h4>Label</h4>
-              <span className="text-muted">Something else</span>
-            </div>
-            <div className="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/vine" className="img-responsive" alt="Generic placeholder thumbnail" />
-              <h4>Label</h4>
-              <span className="text-muted">Something else</span>
-            </div>
-          </div>
-
+          <h2 className="sub-header">Add Movie</h2>
+          <form onSubmit={handleSubmit(::this.handleMovie)}>
+            <input type="text" {...title} placeholder="title"/>
+            <input type="text" {...sprocketCount} placeholder="sprocketCount"/>
+            <input type="text" {...owner} placeholder="owner"/>
+            <button onSubmit={handleSubmit(::this.handleMovie)}>Add Movie</button>
+          </form>
           <h2 className="sub-header">Movies</h2>
 
           <button className={`${styles.refreshBtn} btn btn-success`} onClick={this.props.load}>
@@ -110,11 +102,16 @@ export class MoviesPage extends Component {
 }
 
 MoviesPage.propTypes = {
+  fields: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
   movies: PropTypes.array,
   error: PropTypes.string,
   loading: PropTypes.bool,
   load: PropTypes.func.isRequired,
+  addMovie: PropTypes.func.isRequired,
   isDataLoaded: PropTypes.bool.isRequired
+
 };
 
-export default connect(mapStateToProps, mapActionsToProps)(MoviesPage);
+export default reduxForm(reduxFormConfig, mapStateToProps, mapActionsToProps)(MoviesPage);

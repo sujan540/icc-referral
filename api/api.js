@@ -5,9 +5,12 @@ import path from 'path';
 
 import { login, logout } from './actions/auth';
 import * as moviesController from './actions/movies';
+import { addMovie } from './actions/movies';
+import * as referralController from './actions/referral';
+import { addReferral } from './actions/referral';
 
 var app = express(),
-    router = express.Router();  
+    router = express.Router();
 
 var isProduction = process.env.NODE_ENV === 'production';
 var port = isProduction ? process.env.PORT : 3001;
@@ -32,10 +35,45 @@ app.use(function(req, res, next) {
 router.post('/login', login);
 router.post('/logout', logout);
 
+router.post('/addMovie', addMovie);
+router.post('/addReferral', addReferral);
 // actions added for movies
 router.route('/movies')
   .get( (req, res) => {
     moviesController.getAll(req, res)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((reason) => {
+      if (reason && reason.redirect) {
+        res.redirect(reason.redirect);
+      } else {
+        console.error('API ERROR: ', reason);
+        res.status(reason.status || 500).json(reason);
+      }
+    });
+});
+
+// actions added for movies
+router.route('/referrals')
+  .get( (req, res) => {
+    referralController.getAll(req, res)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((reason) => {
+      if (reason && reason.redirect) {
+        res.redirect(reason.redirect);
+      } else {
+        console.error('API ERROR: ', reason);
+        res.status(reason.status || 500).json(reason);
+      }
+    });
+});
+
+router.route('/skillSets')
+  .get( (req, res) => {
+    referralController.getSkillSets(req, res)
     .then((result) => {
       res.json(result);
     })

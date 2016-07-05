@@ -35,7 +35,7 @@ class CustomCounter extends Component {
         <CounterMulti { ...restProps } />
         <button onClick={increment100}>+100</button>
         <button onClick={decrement100Async}>-100</button>
-        <button onClick={hello}>HELLO action</button>
+        <button onClick={hello}>HELLO actions</button>
       </div>
     );
   }

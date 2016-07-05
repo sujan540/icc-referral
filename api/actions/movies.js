@@ -14,17 +14,37 @@ const getMovies = (req, res) => {
   return movies;
 }
 
+function getId(movies){
+  return movies.reduce((maxId, movie)=>{
+    return Math.max(movie.id, maxId)
+  },-1)+1
+}
+
 //----------GET ALL
 export function getAll(req, res){
  	console.info('----\n==> LOAD MOVIES');
   return new Promise((resolve, reject) => {
     // make async call to database
     setTimeout(() => {
-      if (Math.floor(Math.random() * 3) === 0) {
-        reject('Movies load fails 33% of the time. You were unlucky.');
-      } else {
+      // if (Math.floor(Math.random() * 3) === 0) {
+      //  reject('Movies load fails 33% of the time. You were unlucky.');
+      // } else {
         resolve(getMovies(req));
-      }
+      // }
     }, 1000); // simulate async load
   });
+}
+
+export function addMovie(req, res){
+  console.info('----\n==> Add MOVIE');
+  const movie = req.body;
+  const movies = getMovies(req);
+
+  movies.push({
+    id: getId(movies),
+    title: movie.title,
+    sprocketCount: movie.sprocketCount,
+    owner: movie.owner
+  });
+  console.info(movies);
 }
