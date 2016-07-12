@@ -1,27 +1,33 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
-import { isLoaded, load, addReferral } from 'redux-base/modules/referral';
+import { load, addReferral } from 'redux-base/modules/referral';
 import Multiselect from 'react-widgets/lib/Multiselect';
 import DropdownList from 'react-widgets/lib/DropdownList';
 import 'react-widgets/dist/css/react-widgets.css';
+import Row from 'react-bootstrap/lib/Row';
+import Dropzone from 'react-dropzone';
 
 const mapStateToProps = state => ({
-  error: state.movies.error,
-  loading: state.movies.loading,
-  isDataLoaded: isLoaded(state)
+  error: state.movies.error
 });
 
 const mapActionsToProps = { load, addReferral };
 
-const options = ['CSS', 'HTML', 'JavaScript', 'Ruby on Rails'];
-const statusOptions = ['Active', 'Passive'];
+const options = ['CSS3', 'HTML5', 'JavaScript', 'Ruby on Rails', 'Java', '.Net', 'AngularJS', 'React', 'Spring', 'Hibernate', 'Jquery', 'Ajax', 'JSF', 'JSP', 'Scala'];
+const statusOptions = ['Actively', 'Passive'];
+const connectionOptions = ['Friend', 'Coworker'];
 
 const reduxFormConfig = {
-  form: 'movieForm',                      // the name of your form and the key to where your form's state will be mounted
-  fields: ['name', 'extra', 'skill', 'status'] // a list of all your fields in your form
+  form: 'referralForm',                      // the name of your form and the key to where your form's state will be mounted
+  fields: ['name', 'extra', 'skill', 'status', 'connection', 'resume', 'email', 'phone', 'linkedin', 'github', 'twitter', 'other', 'notifyRecruiter', 'notifySelf'] // a list of all your fields in your form
 };
 
 export class EmployeeSubmission extends Component {
+  getInitialState() {
+    return {
+      files: []
+    };
+  }
 
   componentWillMount() {
     const { isDataLoaded, load: loadData } = this.props;
@@ -34,6 +40,22 @@ export class EmployeeSubmission extends Component {
   onChange() {
   }
 
+  onDrop(file) {
+    this.setState({
+      files: file
+    });
+    console.log('Received files: ', file);
+    console.log(this.props);
+  }
+
+  onOpenClick() {
+    this.refs.dropzone.open();
+  }
+
+  handleClick(e) {
+    console.log(e);
+  }
+
   handleReferral(data) {
     const { load: loadData } = this.props;
     this.props.dispatch(addReferral(data));
@@ -41,41 +63,194 @@ export class EmployeeSubmission extends Component {
   }
 
   render() {
-    const { loading, fields: { name, extra, skill, status }, handleSubmit } = this.props;
+    const styles = require('./EmployeeSubmission.scss');
+    const { loading, fields: { name, skill, connection, status, extra, email, phone, linkedin, github, twitter, other, notifyRecruiter, notifySelf }, handleSubmit } = this.props;
     let refreshClassName = 'fa fa-refresh';
     if (loading) {
       refreshClassName += ' fa-spin';
     }
 
     return (
-      <div>
-          <h2 className="sub-header">Employee Submission Form</h2>
+      <div className={`container ${styles.referralSubmission}`}>
+          <h2>Referral Submission</h2>
           <form className="form-referral" onSubmit={handleSubmit(::this.handleReferral)}>
-            <div className="form-group">
-              <div className="input-group">
-                <label>Candidate Name:</label>
-                <input type="text" className="form-control" {...name} placeholder="Candidate Name" autoFocus/>
+            <Row>
+              <div className="col-20">
+                <label className="label-class">Candidate Name:</label>
               </div>
-            </div>
-            <div className="form-group">
-              <div className="input-group">
-                <label>Other Information:</label>
-                <input type="text" className="form-control" {...extra} placeholder="Other Information"/>
+              <div className="col-35">
+                <input type="text" className="form-control" {...name} autoFocus/>
               </div>
-            </div>
-            <div className="form-group">
-              <div className="input-group">
-                <label>Skills:</label>
-                <Multiselect name="skill" {...skill} data={options} placeholder="Select the skill set" onBlur={() => this.setState({ skill })}/>
+              <div className="col-45">
+                &nbsp;
               </div>
-            </div>
-            <div className="form-group">
-              <div className="input-group">
-                <label>Current Status:</label>
-                <DropdownList name="status" {...status} data={statusOptions} placeholder="Select current status of candidate" onBlur={() => this.setState({ status })}/>
+            </Row>
+            <Row>
+              <div className="col-20">
+                <label className="label-class">Skills/Technology:</label>
               </div>
-            </div>
-          <button onSubmit={handleSubmit(::this.handleReferral)}>Add Referral</button>
+              <div className="col-20">
+                <Multiselect className="form-multiselect" name="skill" {...skill} data={options} onBlur={() => this.setState({ skill })}/>
+              </div>
+            </Row>
+            <Row>
+              <div className="col-20">
+                <label className="label-class">Connection:</label>
+              </div>
+              <div className="col-35">
+                <DropdownList className="form-control" name="connection" {...connection} data={connectionOptions} onBlur={() => this.setState({ connection })}/>
+              </div>
+              <div className="col-10">
+                &nbsp;
+              </div>
+              <div className="col-10">
+                <label className="label-class">Status:</label>
+              </div>
+              <div className="col-25">
+                <DropdownList className="form-control" name="status" {...status} data={statusOptions} onBlur={() => this.setState({ status })}/>
+              </div>
+            </Row>
+            <Row>
+              <div className="col-20">
+                <label className="label-class">Other Information:</label>
+              </div>
+              <div className="col-35">
+                <input type="text" className="form-control" name="extra" {...extra}/>
+              </div>
+              <div className="col-5">
+                &nbsp;
+              </div>
+            </Row>
+            <Row>
+              <div className="col-20">
+                <label className="label-class">Attach Resume:</label>
+              </div>
+              <div className="col-35">
+                <Dropzone ref="dropzone" onDrop={::this.onDrop}>
+                  <div className="dropzone-label">Drop resume here or click to upload</div>
+                </Dropzone>
+                {/* <button type="button" onClick={::this.onOpenClick}>
+                Open
+                </button> */}
+              </div>
+              <div className="col-5">
+                &nbsp;
+              </div>
+            </Row>
+            <Row>
+              <div className="col-20">
+                <label className="label-class">Attach Portfolio:</label>
+              </div>
+              <div className="col-35">
+              <Dropzone ref="dropzone" onDrop={::this.onDrop}>
+                <div className="dropzone-label">Drop portfolio here or click to upload</div>
+              </Dropzone>
+              </div>
+              <div className="col-5">
+                &nbsp;
+              </div>
+            </Row>
+            <Row>
+              <div className="col-80">
+                <label className="label-class">No Resume Available - Input the following candidate details:</label>
+              </div>
+              <div className="col-20">
+                &nbsp;
+              </div>
+            </Row>
+            <Row>
+              <div className="col-20">
+                <label className="label-class">Email:</label>
+              </div>
+              <div className="col-35">
+                <input type="text" className="form-control" name="email" {...email} autoFocus/>
+              </div>
+              <div className="col-45">
+                &nbsp;
+              </div>
+            </Row>
+            <Row>
+              <div className="col-20">
+                <label className="label-class">Phone:</label>
+              </div>
+              <div className="col-35">
+                <input type="text" className="form-control" name="phone" {...phone} autoFocus/>
+              </div>
+              <div className="col-45">
+                &nbsp;
+              </div>
+            </Row>
+            <Row>
+              <div className="col-20">
+                <label className="label-class">LinkedIn:</label>
+              </div>
+              <div className="col-35">
+                <input type="text" className="form-control" name="linkedin" {...linkedin} autoFocus/>
+              </div>
+              <div className="col-45">
+                &nbsp;
+              </div>
+            </Row>
+            <Row>
+              <div className="col-20">
+                <label className="label-class">Github:</label>
+              </div>
+              <div className="col-35">
+                <input type="text" className="form-control" name="github" {...github} autoFocus/>
+              </div>
+              <div className="col-45">
+                &nbsp;
+              </div>
+            </Row>
+            <Row>
+              <div className="col-20">
+                <label className="label-class">Twitter:</label>
+              </div>
+              <div className="col-35">
+                <input type="text" className="form-control" name="twitter" {...twitter} autoFocus/>
+              </div>
+              <div className="col-45">
+                &nbsp;
+              </div>
+            </Row>
+            <Row>
+              <div className="col-20">
+                <label className="label-class">Other:</label>
+              </div>
+              <div className="col-35">
+                <input type="text" className="form-control" name="other" {...other} autoFocus/>
+              </div>
+              <div className="col-45">
+                &nbsp;
+              </div>
+            </Row>
+            <Row>
+              <div className="col-20">
+                &nbsp;
+              </div>
+              <div className="col-80">
+                <input className="form-checkbox" type="checkbox" name="notifyRecruiter" value="notifyRecruiter" {...notifyRecruiter}/> <label className="label-class">Set auto notification to recruiter</label>
+              </div>
+            </Row>
+            <Row>
+              <div className="col-20">
+                &nbsp;
+              </div>
+              <div className="col-80">
+                <input className="form-checkbox" type="checkbox" name="notifySelf" value="notifySelf" {...notifySelf}/> <label className="label-class">Set auto notification to yourself</label>
+              </div>
+            </Row>
+            <Row>
+              <div className="col-20">
+                &nbsp;
+              </div>
+              <div className="col-15">
+                <button className="btn btn-primary btn-block" onSubmit={handleSubmit(::this.handleReferral)}>Submit</button>
+              </div>
+              <div className="col-65">
+                &nbsp;
+              </div>
+            </Row>
           </form>
       </div>
     );
@@ -88,10 +263,12 @@ EmployeeSubmission.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   referrals: PropTypes.array,
   error: PropTypes.string,
+  lado: PropTypes.array,
   loading: PropTypes.bool,
   load: PropTypes.func.isRequired,
   addReferral: PropTypes.func.isRequired,
-  isDataLoaded: PropTypes.bool.isRequired
+  isDataLoaded: PropTypes.bool.isRequired,
+  files: PropTypes.array
 
 };
 

@@ -3,6 +3,7 @@ import { reduxForm } from 'redux-form';
 import { isLoaded, load, addMovie } from 'redux-base/modules/movies';
 
 const mapStateToProps = state => ({
+  movies: state.movies.data,
   error: state.movies.error,
   loading: state.movies.loading,
   isDataLoaded: isLoaded(state)

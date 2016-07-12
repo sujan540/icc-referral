@@ -23,7 +23,7 @@ class Header extends Component {
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <a className="navbar-brand" href="#">ICC Employee Referral</a>
+            <a className="navbar-brand font-min-max" href="#">ICC Employee Referral</a>
           </div>
           <div id="navbar" className="navbar-collapse collapse">
             <ul className="nav navbar-nav navbar-right">
@@ -47,9 +47,7 @@ class Header extends Component {
               <li><a href="#">Dashboard</a></li>
               <li><a href="#">Help</a></li>
             </ul>
-            <form className="navbar-form navbar-right">
-              <input type="text" className="form-control" placeholder="Search..." />
-            </form>
+
           </div>
         </div>
       </nav>

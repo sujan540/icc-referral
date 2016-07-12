@@ -61,10 +61,17 @@ export function addReferral(req, res){
     id: getId(referrals),
     name: referral.form.name,
     skill: referral.form.skill,
-  //  technology: referral.technology,
-  //  connection: referral.connection,
-    status:referral.form.status,
-    extra:referral.form.extra
+    connection: referral.form.connection,
+    status: referral.form.status,
+    extra: referral.form.extra,
+    email: referral.form.email,
+    phone: referral.form.phone,
+    linkedin: referral.form.linkedin,
+    github: referral.form.github,
+    twitter: referral.form.twitter,
+    other: referral.form.other,
+    notifyRecruiter: referral.form.notifyRecruiter,
+    notifySelf: referral.form.notifySelf
   });
   console.info(referrals);
 }

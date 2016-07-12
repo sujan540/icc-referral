@@ -1,6 +1,17 @@
 @import 'base';
+@import 'font';
+@import 'sharedStyle';
+@import 'referralsubmission';
 @import 'vendor/normalize';
 
 body{
 	background-color: #ffffff;
+	width:80%;
+	margin-left:auto;
+	margin-right:auto;
+	font-size: 1vw;
+}
+
+.container-fluid{
+	width:80%;
 }

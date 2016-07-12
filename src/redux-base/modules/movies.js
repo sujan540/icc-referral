@@ -18,7 +18,8 @@ export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case ADD_MOVIE:
       return {
-        ...state
+        ...state,
+        loading: true
       };
     case LOAD:
       return {
@@ -54,7 +55,7 @@ export function isLoaded(globalState) {
 export function load() {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-    promise: axios.get('http://localhost:3001/api/movies')
+    promise: axios.get('http://localhost:3001/api/referrals')
   };
 }
 

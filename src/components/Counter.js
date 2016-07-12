@@ -17,6 +17,7 @@ export class Counter extends Component {
   render() {
     const { increment, incrementIfOdd, incrementAsync, decrement, counter } = this.props;
     return (
+      <div>
       <p>
         Clicked: {counter} times
         {' '}
@@ -28,6 +29,10 @@ export class Counter extends Component {
         {' '}
         <button onClick={() => incrementAsync()}>Increment async</button>
       </p>
+      <p className="no-limits">Viewport units are cool,</p>
+      <p className="limit-min">when theyre not too small</p>
+      <p className="limit-min-max">... or too big!</p>
+      </div>
     );
   }
 }

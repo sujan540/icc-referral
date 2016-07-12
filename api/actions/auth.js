@@ -1,16 +1,16 @@
 export function login(req, res) {
     const credentials = req.body;
-    if(credentials.userName==='admin@example.com' && credentials.password==='password'){
+    if(credentials.userName==='smaharjan@icct.com' && credentials.password==='sujan540'){
       res.json({
         userName: credentials.userName,
         role: 'ADMIN'
-      });   
+      });
     }else{
       // just demonstration of server-side validation
       res.status('401').send({
         message : 'Invalid user/password',
         // userName - the same field name as used in form on client side
-        validationErrors: { 
+        validationErrors: {
           userName : 'Aha, server-side validation error',
           password: 'Use another password'
         }
@@ -21,7 +21,7 @@ export function login(req, res) {
 
 export function logout(req, res) {
     res.json({
-      'userName': 'admin', 
+      'userName': 'admin',
       'role': 'ADMIN'
-    });   
+    });
 }

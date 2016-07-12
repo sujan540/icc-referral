@@ -4,6 +4,7 @@ import counter from './counter';
 import customCounter from './customCounter';
 import auth from './auth';
 import movies from './movies';
+import referrals from './referrals';
 import { routerReducer } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form';
 import loginFormPlugin from 'containers/LoginPage/loginForm/loginFormPlugin';
@@ -23,5 +24,6 @@ export default combineReducers({
     someCustomCounter: multireducer(customCounter, 'customCounter'), // <-- catch actions that contain the key
   }),
   form: formReducer.plugin(loginFormPlugin),
-  movies
+  movies,
+  referrals
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router';
-import { CoreLayout, MoviesPage, LoginPage, CountersPage, EmployeeSubmissionForm, ReactWidgetsForm } from './containers';
+import { CoreLayout, MoviesPage, LoginPage, CountersPage, EmployeeSubmissionForm, ReferralQueue } from './containers';
 import { Counter, AutoCounter } from './components';
 
 export default (store) => {
@@ -14,16 +14,17 @@ export default (store) => {
 
   return (
 		<Route component={CoreLayout}>
-      <Route path="reactWidgetsForm" component={ReactWidgetsForm} />
-      <Route path="employeesubmission" component={EmployeeSubmissionForm} />
+
 			<Route path="login" component={LoginPage} />
 			<Route path="counter" component={Counter}/>
       <Route path="countersPage" component={CountersPage}/>
 			<Route path="autoCounter" component={AutoCounter} />
 			<Route onEnter={requireLogin}>
 				<Route path="movies" component={MoviesPage} />
+        <Route path="referralqueue" component={ReferralQueue} />
+        <Route path="referralsubmission" component={EmployeeSubmissionForm} />
 			</Route>
-			<Redirect from="/" to="/counter" />
+			<Redirect from="/" to="/login" />
 		</Route>
 	);
 };

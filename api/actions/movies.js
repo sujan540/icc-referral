@@ -9,6 +9,7 @@ const getMovies = (req, res) => {
   let movies = req.session.movies;
   if (!movies) {
     movies = initialMovies;
+
     req.session.movies = movies;
   }
   return movies;
@@ -32,6 +33,7 @@ export function getAll(req, res){
         resolve(getMovies(req));
       // }
     }, 1000); // simulate async load
+    console.info(getMovies(req));
   });
 }
 
