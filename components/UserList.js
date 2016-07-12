@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import TodoItem from './TodoItem'
+import UserItem from './UserItem'
 import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
 import actions from '../redux/actions'
@@ -14,14 +14,14 @@ function mapStateToProps(state){
 	return state
 }
 
-class TodoList extends Component{
+class UserList extends Component{
 
   render(){
     return (
       <ul>
         {
-          this.props.todos.map((todo)=>{
-            return <TodoItem key={todo.id} todo={todo} actions={this.props.actions}/>
+          this.props.users.map((user)=>{
+            return <UserItem key={user.id} user={user} actions={this.props.actions}/>
           })
         }
       </ul>
@@ -29,5 +29,5 @@ class TodoList extends Component{
   }
 }
 
-export default TodoList
-export default connect(mapStateToProps,mapDispatchToProps)(TodoList)
+export default UserList
+export default connect(mapStateToProps,mapDispatchToProps)(UserList)
