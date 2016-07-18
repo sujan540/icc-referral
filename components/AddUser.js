@@ -46,6 +46,7 @@ class AddUser extends Component{
       console.log(this.props)
     return (
       <div>
+				<p>Add User here</p>
         <form onSubmit={this.handleSubmit.bind(this)}>
         <input
           type="text"

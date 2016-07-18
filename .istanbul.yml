@@ -1,0 +1,3 @@
+instrumentation:
+  root: components
+extensions: ['.js', '.jsx', '.es6']
