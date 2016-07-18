@@ -19,10 +19,11 @@ export default (store) => {
 			<Route path="counter" component={Counter}/>
       <Route path="countersPage" component={CountersPage}/>
 			<Route path="autoCounter" component={AutoCounter} />
+      <Route path="referralqueue" component={ReferralQueue} />
+      <Route path="referralsubmission" component={EmployeeSubmissionForm} />
+
 			<Route onEnter={requireLogin}>
-				<Route path="movies" component={MoviesPage} />
-        <Route path="referralqueue" component={ReferralQueue} />
-        <Route path="referralsubmission" component={EmployeeSubmissionForm} />
+        <Route path="movies" component={MoviesPage} />
 			</Route>
 			<Redirect from="/" to="/login" />
 		</Route>

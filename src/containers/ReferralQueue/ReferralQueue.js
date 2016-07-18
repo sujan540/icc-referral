@@ -22,69 +22,58 @@ export class ReferralPage extends Component {
   }
 
   render() {
-    const { referrals, error, loading } = this.props;
+    const { referrals, loading } = this.props;
     let refreshClassName = 'fa fa-refresh';
     if (loading) {
       refreshClassName += ' fa-spin';
     }
 
-    const styles = require('./ReferralQueue.scss');
-
     return (
-      <div>
+      <div className="container">
+          <ul className="nav nav-tabs" role="tabmyprofile">
+            <li className="active">
+              <a href="#myprofile" role="tab" data-toggle="tab">
+                <icon className="fa fa-user"></icon>Referral Queue
+              </a>
+            </li>
+          </ul>
 
-          <h2 className="sub-header">Referral Queue</h2>
-
-          <button className={`${styles.refreshBtn} btn btn-success`} onClick={this.props.load}>
-            <i className={refreshClassName}/> {' '} Reload Referral
-          </button>
-
-          <p>
-            This widgets are stored in your session, so feel free to edit it and refresh.
-          </p>
-
-          {error &&
-          <div className="alert alert-danger" role="alert">
-            <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            {' '}
-            {error.toString()}
-          </div>}
-
-          {loading &&
-          <div>
-            Loading...(here you can render spinner or whatever)
-          </div>}
-
-          <div className="table-responsive">
-          {referrals && referrals.length &&
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Candidate Name</th>
-                  <th>Status</th>
-                  <th>Update</th>
-                  <th>Bump</th>
-                  <th>Submission Date</th>
-                  <th>Resume</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  referrals.map((referral) =>
-                    <tr key={referral.id}>
-                      <td>{referral.id}</td>
-                      <td>{referral.name}</td>
-                      <td>{referral.status}</td>
-                      <td>{referral.skill}</td>
-                      <td>{referral.connection}</td>
-                      <td>{referral.connection}</td>
-                      <td>{referral.connection}</td>
-                    </tr>)
+          <div className="tab-content">
+            <div className="tab-pane fade active in">
+              <div className="panel panel-default">
+                <div className="table-responsive">
+                {referrals && referrals.length &&
+                  <table className="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Candidate Name</th>
+                        <th>Status</th>
+                        <th>Update</th>
+                        <th>Bump</th>
+                        <th>Submission Date</th>
+                        <th>Resume</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {
+                        referrals.map((referral) =>
+                          <tr key={referral.id}>
+                            <td>{referral.id}</td>
+                            <td>{referral.name}</td>
+                            <td>{referral.status}</td>
+                            <td>{referral.skill}</td>
+                            <td>{referral.connection}</td>
+                            <td>{referral.connection}</td>
+                            <td>{referral.connection}</td>
+                          </tr>)
+                      }
+                    </tbody>
+                  </table>
                 }
-              </tbody>
-            </table>
-          }
+                </div>
+              </div>
+            </div>
           </div>
       </div>
     );

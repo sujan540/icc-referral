@@ -63,7 +63,6 @@ export class EmployeeSubmission extends Component {
   }
 
   render() {
-    const styles = require('./EmployeeSubmission.scss');
     const { loading, fields: { name, skill, connection, status, extra, email, phone, linkedin, github, twitter, other, notifyRecruiter, notifySelf }, handleSubmit } = this.props;
     let refreshClassName = 'fa fa-refresh';
     if (loading) {
@@ -71,187 +70,199 @@ export class EmployeeSubmission extends Component {
     }
 
     return (
-      <div className={`container ${styles.referralSubmission}`}>
-          <h2>Referral Submission</h2>
-          <form className="form-referral" onSubmit={handleSubmit(::this.handleReferral)}>
-            <Row>
-              <div className="col-20">
-                <label className="label-class">Candidate Name:</label>
-              </div>
-              <div className="col-35">
-                <input type="text" className="form-control" {...name} autoFocus/>
-              </div>
-              <div className="col-45">
-                &nbsp;
-              </div>
-            </Row>
-            <Row>
-              <div className="col-20">
-                <label className="label-class">Skills/Technology:</label>
-              </div>
-              <div className="col-20">
-                <Multiselect className="form-multiselect" name="skill" {...skill} data={options} onBlur={() => this.setState({ skill })}/>
-              </div>
-            </Row>
-            <Row>
-              <div className="col-20">
-                <label className="label-class">Connection:</label>
-              </div>
-              <div className="col-35">
-                <DropdownList className="form-control" name="connection" {...connection} data={connectionOptions} onBlur={() => this.setState({ connection })}/>
-              </div>
-              <div className="col-10">
-                &nbsp;
-              </div>
-              <div className="col-10">
-                <label className="label-class">Status:</label>
-              </div>
-              <div className="col-25">
-                <DropdownList className="form-control" name="status" {...status} data={statusOptions} onBlur={() => this.setState({ status })}/>
-              </div>
-            </Row>
-            <Row>
-              <div className="col-20">
-                <label className="label-class">Other Information:</label>
-              </div>
-              <div className="col-35">
-                <input type="text" className="form-control" name="extra" {...extra}/>
-              </div>
-              <div className="col-5">
-                &nbsp;
-              </div>
-            </Row>
-            <Row>
-              <div className="col-20">
-                <label className="label-class">Attach Resume:</label>
-              </div>
-              <div className="col-35">
+      <div className="container">
+        <ul className="nav nav-tabs" role="tabmyprofile">
+          <li className="active">
+            <a href="#myprofile" role="tab" data-toggle="tab">
+              <icon className="fa fa-user"></icon>Referral Submission
+            </a>
+          </li>
+        </ul>
+        <div className="tab-content">
+          <div className="tab-pane fade active in">
+            <div className="panel panel-default">
+            <form className="form-referral" onSubmit={handleSubmit(::this.handleReferral)}>
+              <Row>
+                <div className="col-20">
+                  <label className="label-class">Candidate Name:</label>
+                </div>
+                <div className="col-35">
+                  <input type="text" className="form-control" {...name} autoFocus/>
+                </div>
+                <div className="col-45">
+                  &nbsp;
+                </div>
+              </Row>
+              <Row>
+                <div className="col-20">
+                  <label className="label-class">Skills/Technology:</label>
+                </div>
+                <div className="col-60">
+                  <Multiselect className="form-multiselect" name="skill" {...skill} data={options} onBlur={() => this.setState({ skill })}/>
+                </div>
+              </Row>
+              <Row>
+                <div className="col-20">
+                  <label className="label-class">Connection:</label>
+                </div>
+                <div className="col-35">
+                  <DropdownList className="form-control" name="connection" {...connection} data={connectionOptions} onBlur={() => this.setState({ connection })}/>
+                </div>
+                <div className="col-10">
+                  &nbsp;
+                </div>
+                <div className="col-10">
+                  <label className="label-class">Status:</label>
+                </div>
+                <div className="col-25">
+                  <DropdownList className="form-control" name="status" {...status} data={statusOptions} onBlur={() => this.setState({ status })}/>
+                </div>
+              </Row>
+              <Row>
+                <div className="col-20">
+                  <label className="label-class">Other Information:</label>
+                </div>
+                <div className="col-35">
+                  <input type="text" className="form-control" name="extra" {...extra}/>
+                </div>
+                <div className="col-5">
+                  &nbsp;
+                </div>
+              </Row>
+              <Row>
+                <div className="col-20">
+                  <label className="label-class">Attach Resume:</label>
+                </div>
+                <div className="col-35">
+                  <Dropzone ref="dropzone" onDrop={::this.onDrop}>
+                    <div className="dropzone-label">Drop resume here or click to upload</div>
+                  </Dropzone>
+                  {/* <button type="button" onClick={::this.onOpenClick}>
+                  Open
+                  </button> */}
+                </div>
+                <div className="col-5">
+                  &nbsp;
+                </div>
+              </Row>
+              <Row>
+                <div className="col-20">
+                  <label className="label-class">Attach Portfolio:</label>
+                </div>
+                <div className="col-35">
                 <Dropzone ref="dropzone" onDrop={::this.onDrop}>
-                  <div className="dropzone-label">Drop resume here or click to upload</div>
+                  <div className="dropzone-label">Drop portfolio here or click to upload</div>
                 </Dropzone>
-                {/* <button type="button" onClick={::this.onOpenClick}>
-                Open
-                </button> */}
-              </div>
-              <div className="col-5">
-                &nbsp;
-              </div>
-            </Row>
-            <Row>
-              <div className="col-20">
-                <label className="label-class">Attach Portfolio:</label>
-              </div>
-              <div className="col-35">
-              <Dropzone ref="dropzone" onDrop={::this.onDrop}>
-                <div className="dropzone-label">Drop portfolio here or click to upload</div>
-              </Dropzone>
-              </div>
-              <div className="col-5">
-                &nbsp;
-              </div>
-            </Row>
-            <Row>
-              <div className="col-80">
-                <label className="label-class">No Resume Available - Input the following candidate details:</label>
-              </div>
-              <div className="col-20">
-                &nbsp;
-              </div>
-            </Row>
-            <Row>
-              <div className="col-20">
-                <label className="label-class">Email:</label>
-              </div>
-              <div className="col-35">
-                <input type="text" className="form-control" name="email" {...email} autoFocus/>
-              </div>
-              <div className="col-45">
-                &nbsp;
-              </div>
-            </Row>
-            <Row>
-              <div className="col-20">
-                <label className="label-class">Phone:</label>
-              </div>
-              <div className="col-35">
-                <input type="text" className="form-control" name="phone" {...phone} autoFocus/>
-              </div>
-              <div className="col-45">
-                &nbsp;
-              </div>
-            </Row>
-            <Row>
-              <div className="col-20">
-                <label className="label-class">LinkedIn:</label>
-              </div>
-              <div className="col-35">
-                <input type="text" className="form-control" name="linkedin" {...linkedin} autoFocus/>
-              </div>
-              <div className="col-45">
-                &nbsp;
-              </div>
-            </Row>
-            <Row>
-              <div className="col-20">
-                <label className="label-class">Github:</label>
-              </div>
-              <div className="col-35">
-                <input type="text" className="form-control" name="github" {...github} autoFocus/>
-              </div>
-              <div className="col-45">
-                &nbsp;
-              </div>
-            </Row>
-            <Row>
-              <div className="col-20">
-                <label className="label-class">Twitter:</label>
-              </div>
-              <div className="col-35">
-                <input type="text" className="form-control" name="twitter" {...twitter} autoFocus/>
-              </div>
-              <div className="col-45">
-                &nbsp;
-              </div>
-            </Row>
-            <Row>
-              <div className="col-20">
-                <label className="label-class">Other:</label>
-              </div>
-              <div className="col-35">
-                <input type="text" className="form-control" name="other" {...other} autoFocus/>
-              </div>
-              <div className="col-45">
-                &nbsp;
-              </div>
-            </Row>
-            <Row>
-              <div className="col-20">
-                &nbsp;
-              </div>
-              <div className="col-80">
-                <input className="form-checkbox" type="checkbox" name="notifyRecruiter" value="notifyRecruiter" {...notifyRecruiter}/> <label className="label-class">Set auto notification to recruiter</label>
-              </div>
-            </Row>
-            <Row>
-              <div className="col-20">
-                &nbsp;
-              </div>
-              <div className="col-80">
-                <input className="form-checkbox" type="checkbox" name="notifySelf" value="notifySelf" {...notifySelf}/> <label className="label-class">Set auto notification to yourself</label>
-              </div>
-            </Row>
-            <Row>
-              <div className="col-20">
-                &nbsp;
-              </div>
-              <div className="col-15">
-                <button className="btn btn-primary btn-block" onSubmit={handleSubmit(::this.handleReferral)}>Submit</button>
-              </div>
-              <div className="col-65">
-                &nbsp;
-              </div>
-            </Row>
-          </form>
+                </div>
+                <div className="col-5">
+                  &nbsp;
+                </div>
+              </Row>
+              <Row>
+                <div className="col-80">
+                  <label className="label-class">No Resume Available - Input the following candidate details:</label>
+                </div>
+                <div className="col-20">
+                  &nbsp;
+                </div>
+              </Row>
+              <Row>
+                <div className="col-20">
+                  <label className="label-class">Email:</label>
+                </div>
+                <div className="col-35">
+                  <input type="text" className="form-control" name="email" {...email} autoFocus/>
+                </div>
+                <div className="col-45">
+                  &nbsp;
+                </div>
+              </Row>
+              <Row>
+                <div className="col-20">
+                  <label className="label-class">Phone:</label>
+                </div>
+                <div className="col-35">
+                  <input type="text" className="form-control" name="phone" {...phone} autoFocus/>
+                </div>
+                <div className="col-45">
+                  &nbsp;
+                </div>
+              </Row>
+              <Row>
+                <div className="col-20">
+                  <label className="label-class">LinkedIn:</label>
+                </div>
+                <div className="col-35">
+                  <input type="text" className="form-control" name="linkedin" {...linkedin} autoFocus/>
+                </div>
+                <div className="col-45">
+                  &nbsp;
+                </div>
+              </Row>
+              <Row>
+                <div className="col-20">
+                  <label className="label-class">Github:</label>
+                </div>
+                <div className="col-35">
+                  <input type="text" className="form-control" name="github" {...github} autoFocus/>
+                </div>
+                <div className="col-45">
+                  &nbsp;
+                </div>
+              </Row>
+              <Row>
+                <div className="col-20">
+                  <label className="label-class">Twitter:</label>
+                </div>
+                <div className="col-35">
+                  <input type="text" className="form-control" name="twitter" {...twitter} autoFocus/>
+                </div>
+                <div className="col-45">
+                  &nbsp;
+                </div>
+              </Row>
+              <Row>
+                <div className="col-20">
+                  <label className="label-class">Other:</label>
+                </div>
+                <div className="col-35">
+                  <input type="text" className="form-control" name="other" {...other} autoFocus/>
+                </div>
+                <div className="col-45">
+                  &nbsp;
+                </div>
+              </Row>
+              <Row>
+                <div className="col-20">
+                  &nbsp;
+                </div>
+                <div className="col-80">
+                  <input className="form-checkbox" type="checkbox" name="notifyRecruiter" value="notifyRecruiter" {...notifyRecruiter}/> <label className="label-class">Set auto notification to recruiter</label>
+                </div>
+              </Row>
+              <Row>
+                <div className="col-20">
+                  &nbsp;
+                </div>
+                <div className="col-80">
+                  <input className="form-checkbox" type="checkbox" name="notifySelf" value="notifySelf" {...notifySelf}/> <label className="label-class">Set auto notification to yourself</label>
+                </div>
+              </Row>
+              <Row>
+                <div className="col-20">
+                  &nbsp;
+                </div>
+                <div className="col-15">
+                  <button className="btn btn-primary btn-block" onSubmit={handleSubmit(::this.handleReferral)}>Submit</button>
+                </div>
+                <div className="col-65">
+                  &nbsp;
+                </div>
+              </Row>
+            </form>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
