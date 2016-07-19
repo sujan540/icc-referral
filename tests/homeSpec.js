@@ -2,8 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Home from '../components/Home.js';
 import TestUtils from 'react-addons-test-utils';
-import { assert } from 'chai';
+import { assert, expect } from 'chai';
 import jsdom from 'mocha-jsdom';
+import { shallow, render } from 'enzyme';
+import sinon from 'sinon';
 
 
 describe('Home', () => {
@@ -18,10 +20,20 @@ describe('Home', () => {
 
   jsdom();
   it('should contain text: Welcome to the Home Page', function() {
-    var home = TestUtils.renderIntoDocument(<Home />);
+   var home = TestUtils.renderIntoDocument(<Home />);
    var divHome = TestUtils.findRenderedDOMComponentWithTag(home, 'p');
    assert.equal(divHome.textContent, 'Welcome to the Home Page');
 
+  });
+
+  it('renders 1 <Home /> components', () => {
+    const wrapper = shallow(<Home />);
+    expect(wrapper.find('#test')).to.have.length(1);
+  });
+
+  it('contains Home page', () => {
+    const wrapper = render(<Home/>);
+    expect(wrapper.text()).to.contain('Home Page');
   });
 
 });
