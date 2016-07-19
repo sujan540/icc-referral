@@ -49,6 +49,6 @@ export function isLoaded(globalState) {
 export function load() {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-    promise: axios.get('http://localhost:3001/api/referrals')
+    promise: axios.get('http://localhost:8080/EnterpriseArchitecture/referral/')
   };
 }
