@@ -2,8 +2,6 @@ import React from 'react';
 import { Route, Redirect } from 'react-router';
 import { CoreLayout, MoviesPage, LoginPage, CountersPage, EmployeeSubmissionForm, ReferralQueue } from './containers';
 import { Counter, AutoCounter } from './components';
-import ContractsList from './components/pages/ContractsList';
-import ContractForm from './components/pages/ContractForm';
 
 export default (store) => {
   const requireLogin = (nextState, replace) => {
@@ -23,9 +21,6 @@ export default (store) => {
 			<Route path="autoCounter" component={AutoCounter} />
       <Route path="referralqueue" component={ReferralQueue} />
       <Route path="referralsubmission" component={EmployeeSubmissionForm} />
-      <Route path="addContract" component={ContractForm} />
-      <Route path="contracts" component={ContractsList} />
-      <Route path="contracts/:id" component={ContractForm} />
 			<Route onEnter={requireLogin}>
         <Route path="movies" component={MoviesPage} />
 			</Route>
