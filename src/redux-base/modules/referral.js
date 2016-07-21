@@ -72,23 +72,22 @@ export function loadSkillSets() {
 }
 
 export function addReferral(form) {
-  console.log(form.name);
-  console.log(form.skill);
-  console.log(form.extra);
-  console.log(form.connection);
-  console.log(form.status);
-  console.log(form.email);
-  console.log(form.phone);
-  console.log(form.linkedin);
-  console.log(form.github);
-  console.log(form.twitter);
-  console.log(form.other);
-  console.log(form.notifyRecruiter);
-  console.log(form.notifySelf);
-  console.log(form.resume);
+
+  const name = form.name;
+  const email = form.email;
+  const connection = form.connection;
+  const status = form.status;
+  const extra = form.extra;
+  const phone = form.phone;
+  const linkedin = form.linkedin;
+  const github = form.github;
+  const twitter = form.twitter;
+  const other = form.other;
+  const skill = form.skill.join(', ');
+
   return {
     types: [ADD_REFERRAL],
     promise: axios
-    .post('http://localhost:3001/api/addReferral', { form })
+    .post('http://localhost:8080/EnterpriseArchitecture/referral/', { name, email, skill, connection, status, extra, phone, linkedin, github, twitter, other })
   };
 }

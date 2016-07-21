@@ -5,6 +5,7 @@ import customCounter from './customCounter';
 import auth from './auth';
 import movies from './movies';
 import referrals from './referrals';
+import contracts from './contracts';
 import { routerReducer } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form';
 import loginFormPlugin from 'containers/LoginPage/loginForm/loginFormPlugin';
@@ -25,5 +26,6 @@ export default combineReducers({
   }),
   form: formReducer.plugin(loginFormPlugin),
   movies,
-  referrals
+  referrals,
+  contracts
 });

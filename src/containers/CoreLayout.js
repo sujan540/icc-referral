@@ -23,6 +23,7 @@ export default class CoreLayout extends Component {
               <SmartLink url="/referralsubmission" title="Referral Submission" />
               <SmartLink url="/referralqueue" title="Referral Queue" />
               <SmartLink url="/setting" title="Setting" />
+              <SmartLink url="/contracts" title="Contracts" />
               </ul>
             </div>
           </div>

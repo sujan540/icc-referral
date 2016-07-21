@@ -5,7 +5,6 @@ import Multiselect from 'react-widgets/lib/Multiselect';
 import DropdownList from 'react-widgets/lib/DropdownList';
 import 'react-widgets/dist/css/react-widgets.css';
 import Row from 'react-bootstrap/lib/Row';
-import Dropzone from 'react-dropzone';
 
 const mapStateToProps = state => ({
   error: state.movies.error
@@ -19,7 +18,7 @@ const connectionOptions = ['Friend', 'Coworker'];
 
 const reduxFormConfig = {
   form: 'referralForm',                      // the name of your form and the key to where your form's state will be mounted
-  fields: ['name', 'extra', 'skill', 'status', 'connection', 'resume', 'email', 'phone', 'linkedin', 'github', 'twitter', 'other', 'notifyRecruiter', 'notifySelf'] // a list of all your fields in your form
+  fields: ['name', 'extra', 'skill', 'status', 'connection', 'email', 'phone', 'linkedin', 'github', 'twitter', 'other'] // a list of all your fields in your form
 };
 
 export class EmployeeSubmission extends Component {
@@ -57,13 +56,11 @@ export class EmployeeSubmission extends Component {
   }
 
   handleReferral(data) {
-    const { load: loadData } = this.props;
     this.props.dispatch(addReferral(data));
-    loadData();
   }
 
   render() {
-    const { loading, fields: { name, skill, connection, status, extra, email, phone, linkedin, github, twitter, other, notifyRecruiter, notifySelf }, handleSubmit } = this.props;
+    const { loading, fields: { name, skill, connection, status, extra, email, phone, linkedin, github, twitter, other }, handleSubmit } = this.props;
     let refreshClassName = 'fa fa-refresh';
     if (loading) {
       refreshClassName += ' fa-spin';
@@ -81,7 +78,7 @@ export class EmployeeSubmission extends Component {
         <div className="tab-content">
           <div className="tab-pane fade active in">
             <div className="panel panel-default">
-            <form className="form-referral" onSubmit={handleSubmit(::this.handleReferral)}>
+            <form className="form-referral" onSubmit={handleSubmit(::this.handleReferral)} modelAttribute="referral">
               <Row>
                 <div className="col-20">
                   <label className="label-class">Candidate Name:</label>
@@ -129,35 +126,7 @@ export class EmployeeSubmission extends Component {
                   &nbsp;
                 </div>
               </Row>
-              <Row>
-                <div className="col-20">
-                  <label className="label-class">Attach Resume:</label>
-                </div>
-                <div className="col-35">
-                  <Dropzone ref="dropzone" onDrop={::this.onDrop}>
-                    <div className="dropzone-label">Drop resume here or click to upload</div>
-                  </Dropzone>
-                  {/* <button type="button" onClick={::this.onOpenClick}>
-                  Open
-                  </button> */}
-                </div>
-                <div className="col-5">
-                  &nbsp;
-                </div>
-              </Row>
-              <Row>
-                <div className="col-20">
-                  <label className="label-class">Attach Portfolio:</label>
-                </div>
-                <div className="col-35">
-                <Dropzone ref="dropzone" onDrop={::this.onDrop}>
-                  <div className="dropzone-label">Drop portfolio here or click to upload</div>
-                </Dropzone>
-                </div>
-                <div className="col-5">
-                  &nbsp;
-                </div>
-              </Row>
+
               <Row>
                 <div className="col-80">
                   <label className="label-class">No Resume Available - Input the following candidate details:</label>
@@ -230,22 +199,6 @@ export class EmployeeSubmission extends Component {
                 </div>
                 <div className="col-45">
                   &nbsp;
-                </div>
-              </Row>
-              <Row>
-                <div className="col-20">
-                  &nbsp;
-                </div>
-                <div className="col-80">
-                  <input className="form-checkbox" type="checkbox" name="notifyRecruiter" value="notifyRecruiter" {...notifyRecruiter}/> <label className="label-class">Set auto notification to recruiter</label>
-                </div>
-              </Row>
-              <Row>
-                <div className="col-20">
-                  &nbsp;
-                </div>
-                <div className="col-80">
-                  <input className="form-checkbox" type="checkbox" name="notifySelf" value="notifySelf" {...notifySelf}/> <label className="label-class">Set auto notification to yourself</label>
                 </div>
               </Row>
               <Row>
